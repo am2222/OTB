@@ -104,7 +104,12 @@ macro(macro_super_package)
 
   # find_loader_and_args(LOADER_PROGRAM LOADER_PROGRAM_ARGS)
   
-  find_python_soname(python_INSTALLED_SONAME)
+  #do not include python bindings inside xdk
+  #this code must be here. because python_INSTALLED_SONAME is used during
+  #configure_file(linux_setup.in ...)
+  if(NOT GENERATE_XDK)
+    find_python_soname(python_INSTALLED_SONAME)
+  endif()
 
   set(PKG_SEARCHDIRS)
   if(WIN32)
